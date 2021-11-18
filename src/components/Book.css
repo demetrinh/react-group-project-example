@@ -1,0 +1,18 @@
+.Book {
+  list-style-type: none;
+  border: 2px solid #8a817c;
+  margin: 10px;
+  width: 500px;
+}
+
+.Book__subText {
+  color: #463f3a;
+  font-size: 20px;
+  padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media only screen and (min-width: 768px) {
+}
