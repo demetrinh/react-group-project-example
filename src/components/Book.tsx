@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import FavoritesContext from "../context/FavoritesContext";
 import { VolumeInfo } from "../models/GoogleBooksInterface";
 import "./Book.css";
 
@@ -6,6 +8,15 @@ interface Props {
 }
 
 const Book = ({ book }: Props) => {
+  const { addFavorite, removeFavorite, favorites } =
+    useContext(FavoritesContext);
+
+  const isFav = (id: string): boolean => {
+    return favorites.some(
+      (book) => book.volumeInfo.industryIdentifiers[0].identifier === id
+    );
+  };
+
   return (
     <li className="Book">
       <p className="Book__subText">{book.volumeInfo.title}</p>
@@ -18,6 +29,7 @@ const Book = ({ book }: Props) => {
 
       {book.volumeInfo.imageLinks ? (
         <img
+          className="Book__image"
           src={book.volumeInfo.imageLinks.thumbnail}
           alt={book.volumeInfo.title + "Cover"}
         />
@@ -26,6 +38,18 @@ const Book = ({ book }: Props) => {
       )}
 
       <p className="Book__subText">{book.volumeInfo.description}</p>
+      {isFav(book.volumeInfo.industryIdentifiers[0].identifier) === false && (
+        <button onClick={() => addFavorite(book)}>Favorite</button>
+      )}
+      {isFav(book.volumeInfo.industryIdentifiers[0].identifier) && (
+        <button
+          onClick={() =>
+            removeFavorite(book.volumeInfo.industryIdentifiers[0].identifier)
+          }
+        >
+          Remove Favorite
+        </button>
+      )}
     </li>
   );
 };

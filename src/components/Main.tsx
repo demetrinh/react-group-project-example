@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { VolumeInfo } from "../models/GoogleBooksInterface";
 import {
   searchByIsbn,
@@ -54,6 +54,7 @@ const Main = () => {
   return (
     <div className="Main">
       <h1>Google Books</h1>
+      <Link to="/favorites"> Favorites</Link>
       <SearchForm />
       <BookList books={books} />
     </div>

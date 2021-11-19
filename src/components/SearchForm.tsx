@@ -10,11 +10,16 @@ const SearchForm = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    navigate(
-      `/?q=${encodeURIComponent(searchTerm)}+inauthor:${encodeURIComponent(
-        searchAuthor
-      )}`
-    );
+
+    if (searchAuthor) {
+      navigate(
+        `/?q=${encodeURIComponent(searchTerm)}+inauthor:${encodeURIComponent(
+          searchAuthor
+        )}`
+      );
+    } else {
+      navigate(`/?q=${encodeURIComponent(searchTerm)}`);
+    }
   };
   const handleIsbnSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -22,30 +27,38 @@ const SearchForm = () => {
   };
 
   return (
-    <div>
-      <form className="SearchForm" onSubmit={handleSubmit}>
-        <label htmlFor="searchTerm">Title: </label>
-        <input
-          type="text"
-          name="searchTerm"
-          id="searchTerm"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          required
-        />
+    <div className="SearchForm">
+      <form className="SearchForm__title" onSubmit={handleSubmit}>
+        <p>
+          <label htmlFor="searchTerm">Title: </label>
+        </p>
+        <p>
+          <input
+            type="text"
+            name="searchTerm"
+            id="searchTerm"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            required
+          />
+        </p>
+        <p>
+          <label htmlFor="searchAuthor">Author: </label>
+        </p>
+        <p>
+          <input
+            type="text"
+            name="searchAuthor"
+            id="searchAuthor"
+            value={searchAuthor}
+            onChange={(e) => setSearchAuthor(e.target.value)}
+          />
+        </p>
 
-        <label htmlFor="searchAuthor">Author: </label>
-        <input
-          type="text"
-          name="searchAuthor"
-          id="searchAuthor"
-          value={searchAuthor}
-          onChange={(e) => setSearchAuthor(e.target.value)}
-        />
         <button type="submit">Search by Title</button>
       </form>
 
-      <form className="IsbnForm" onSubmit={handleIsbnSubmit}>
+      <form className="SearchForm__isbn" onSubmit={handleIsbnSubmit}>
         <label htmlFor="isbnSearch">ISBN: </label>
         <input
           type="text"

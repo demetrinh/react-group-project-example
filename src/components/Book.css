@@ -13,6 +13,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.Book__image {
+  height: 200px;
+  width: 125px;
+}
 
 @media only screen and (min-width: 768px) {
 }
